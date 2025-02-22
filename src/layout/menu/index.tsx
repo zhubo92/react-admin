@@ -9,40 +9,44 @@ import {
     SolutionOutlined,
     UsergroupDeleteOutlined, UserOutlined
 } from "@ant-design/icons";
+import {useNavigate} from "react-router-dom";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
 const items: MenuItem[] = [
     {key: "/dashboard", icon: <HomeOutlined />, label: "Dashboard"},
     {
-        key: "/user",
+        key: "/me",
         label: "用户模块",
         icon: <UsergroupDeleteOutlined />,
         children: [
-            {key: "/userList", label: "用户列表", icon: <UserOutlined />},
-            {key: "/menuList", label: "菜单管理", icon: <MailOutlined />},
-            {key: "/roleList", label: "角色管理", icon: <SolutionOutlined />},
-            {key: "/deptList", label: "部门管理", icon: <LaptopOutlined />},
+            {key: "/user", label: "用户列表", icon: <UserOutlined />},
+            {key: "/menu", label: "菜单管理", icon: <MailOutlined />},
+            {key: "/role", label: "角色管理", icon: <SolutionOutlined />},
+            {key: "/dept", label: "部门管理", icon: <LaptopOutlined />},
         ],
     },
 ];
 
 function Menu() {
     const {collapsed} = useStore();
-    const [currentMenu, setCurrentMenu] = useState("1");
+    const navigate = useNavigate();
+    const [currentMenu, setCurrentMenu] = useState(location.pathname);
 
-    const menuClick = () => {
+    const menuClick = ({ key }: { key: string }) => {
+        navigate(key);
+        setCurrentMenu(key);
     };
     return (
         <div className={styles.navHeader}>
             <div className={styles.logo}>
-                <img src="/imgs/logo.png" className={styles.logo} alt="" />
+                <img src="/imgs/logo.png" className={styles.img} alt="" />
                 {collapsed ? "" : <span>企业中台</span>}
             </div>
             <MenuCom
                 items={items}
                 defaultSelectedKeys={[currentMenu]}
-                defaultOpenKeys={["/user"]}
+                defaultOpenKeys={["/me"]}
                 mode="inline"
                 theme="dark"
                 inlineCollapsed={collapsed}

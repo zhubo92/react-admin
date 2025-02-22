@@ -58,16 +58,12 @@ function Dept() {
             content: "确定删除该部门吗？",
             okText: "确定",
             cancelText: "取消",
-            onOk: () => {
-                handleDelOk(_id);
+            onOk: async () => {
+                await deleteDeptApi({_id});
+                message.success("删除成功！");
+                await getDeptList();
             },
         });
-    };
-
-    const handleDelOk = async (_id: string) => {
-        await deleteDeptApi({_id});
-        message.success("删除成功！");
-        getDeptList();
     };
 
     const handleReset = () => {

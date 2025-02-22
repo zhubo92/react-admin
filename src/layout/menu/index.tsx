@@ -38,10 +38,12 @@ function Menu() {
         setCurrentMenu(key);
     };
     return (
-        <div className={styles.navHeader}>
+        <div className={styles.menu}>
             <div className={styles.logo}>
-                <img src="/imgs/logo.png" className={styles.img} alt="" />
-                {collapsed ? "" : <span>企业中台</span>}
+                <div className={styles.img}>
+                    <img src="/imgs/logo.png" alt="" />
+                </div>
+                {collapsed ? "" : <div>企业中台</div>}
             </div>
             <MenuCom
                 items={items}

@@ -26,15 +26,9 @@ function Menu() {
             title: "操作", key: "action", width: "200", render: (_, record) => {
                 return (
                     <Space>
-                        <Button type="primary" onClick={() => {
-                            handleSubCreate(record._id);
-                        }}>新增</Button>
-                        <Button type="primary" onClick={() => {
-                            handleEdit(record);
-                        }}>编辑</Button>
-                        <Button danger onClick={() => {
-                            handleDel(record._id);
-                        }}>删除</Button>
+                        <Button type="primary" onClick={() => handleSubCreate(record._id)}>新增</Button>
+                        <Button type="primary" onClick={() => handleEdit(record)}>编辑</Button>
+                        <Button danger onClick={() => handleDel(record._id)}>删除</Button>
                     </Space>
                 );
             }, align: "center"
@@ -72,16 +66,12 @@ function Menu() {
             content: "确定删除该菜单吗？",
             okText: "确定",
             cancelText: "取消",
-            onOk: () => {
-                handleDelOk(_id);
+            onOk: async () => {
+                await deleteMenuApi({_id});
+                message.success("删除成功！");
+                await getMenuList();
             },
         });
-    };
-
-    const handleDelOk = async (_id: string) => {
-        await deleteMenuApi({_id});
-        message.success("删除成功！");
-        getMenuList();
     };
 
     const handleReset = () => {

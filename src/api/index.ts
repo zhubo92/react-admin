@@ -1,8 +1,18 @@
 import {post, get} from "../utils/request.ts";
 import {
     ICreateMenuParams,
-    ICreateUserParams, IDept, IDeptSearchParams,
-    ILoginParams, IMenu, ISearchParams, IUpdateMenuParams,
+    ICreateUserParams,
+    IDept,
+    IDeptSearchParams,
+    ILoginParams,
+    IMenu,
+    IPermission,
+    IRole,
+    IRoleCreateParams,
+    IRoleEditParams,
+    IRoleSearchParams,
+    ISearchParams,
+    IUpdateMenuParams,
     IUpdateUserParams,
     IUser,
     IUserSearchParams,
@@ -58,11 +68,6 @@ export function getAllUserListApi() {
     return get<IUser[]>("/users/all/list");
 }
 
-// 获取角色
-export function getRoleListApi() {
-    return get("/roles/list");
-}
-
 // 菜单模块
 // 创建菜单参数
 export function createMenuApi(params: ICreateMenuParams) {
@@ -82,4 +87,34 @@ export function getMenuListApi(params?: ISearchParams) {
 // 删除菜单
 export function deleteMenuApi(params: { _id: string }) {
     return post("/menu/delete", params);
+}
+
+// 获取角色列表
+export function getRoleListApi(params: IRoleSearchParams) {
+    return get<ResultData<IRole>>("/roles/list", params);
+}
+
+// 删除角色
+export function deleteRoleApi(params: { _id: string }) {
+    return post("/roles/delete", params);
+}
+
+// 更新权限
+export function updatePermissionApi(params: IPermission) {
+    return post("/roles/update/permission", params);
+}
+
+// 创建角色
+export function createRoleApi(params: IRoleCreateParams) {
+    return post("/roles/create", params);
+}
+
+// 更新角色
+export function updateRoleApi(params: IRoleEditParams) {
+    return post("/roles/edit", params);
+}
+
+// 获取所有角色列表
+export function getAllRoleListApi() {
+    return get<IRole[]>("/roles/allList");
 }

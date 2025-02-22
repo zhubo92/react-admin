@@ -1,4 +1,4 @@
-import {Button, Form, Input, message, Space, Table, TableColumnsType} from "antd";
+import {Button, Form, Input, message, Modal, Space, Table, TableColumnsType} from "antd";
 import {useEffect, useRef, useState} from "react";
 import {deleteDeptApi, getDeptListApi} from "../../api";
 import {IDept} from "../../types/api.ts";
@@ -7,15 +7,16 @@ import CreateDept from "./CreateDept.tsx";
 
 function Dept() {
     const columns: TableColumnsType<IDept> = [
-        {title: "部门名称", dataIndex: "deptName", key: "deptName", width: "200"},
-        {title: "负责人", dataIndex: "userName", key: "userName", width: "150"},
-        {title: "创建时间", dataIndex: "createTime", key: "createTime", render: text => formatTime(text)},
-        {title: "更新时间", dataIndex: "updateTime", key: "updateTime", render: text => formatTime(text)},
+        {title: "部门名称", dataIndex: "deptName", key: "deptName", width: "200", align: "center"},
+        {title: "负责人", dataIndex: "userName", key: "userName", width: "150", align: "center"},
+        {title: "创建时间", dataIndex: "createTime", key: "createTime", render: text => formatTime(text), align: "center"},
+        {title: "更新时间", dataIndex: "updateTime", key: "updateTime", render: text => formatTime(text), align: "center"},
         {
             title: "操作",
             dataIndex: "action",
             key: "action",
             width: "200",
+            align: "center",
             render: (_, record) => {
                 return <Space>
                     <Button type="primary" onClick={() => handleSubCreate(record._id)}>新增</Button>
@@ -52,6 +53,18 @@ function Dept() {
     };
 
     const handleDel = async (_id: string) => {
+        Modal.confirm({
+            title: "删除部门信息",
+            content: "确定删除该部门吗？",
+            okText: "确定",
+            cancelText: "取消",
+            onOk: () => {
+                handleDelOk(_id);
+            },
+        });
+    };
+
+    const handleDelOk = async (_id: string) => {
         await deleteDeptApi({_id});
         message.success("删除成功！");
         getDeptList();
@@ -72,7 +85,7 @@ function Dept() {
                 <Form.Item name="deptName" label="部门名称">
                     <Input placeholder="请输入部门名称" />
                 </Form.Item>
-                <Form.Item name="deptName" label="部门名称">
+                <Form.Item>
                     <div>
                         <Button type="primary" className="mr10" onClick={getDeptList}>查询</Button>
                         <Button type="primary" onClick={handleReset}>重置</Button>
@@ -87,6 +100,7 @@ function Dept() {
                     </div>
                 </div>
                 <Table<IDept>
+                    key={new Date().getTime()}
                     rowKey="_id"
                     columns={columns}
                     dataSource={list}

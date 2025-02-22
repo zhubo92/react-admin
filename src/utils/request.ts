@@ -1,8 +1,6 @@
 import axios from "axios";
 import {message} from "antd";
 
-console.log(import.meta.env.VITE_BASE_URL, "url");
-
 const instance = axios.create({
     baseURL: import.meta.env.VITE_BASE_URL,
     timeout: 3000,
@@ -34,18 +32,18 @@ instance.interceptors.response.use((response) => {
     return Promise.reject(error);
 });
 
-export function get(url: string, params?: object) {
+export function get<T>(url: string, params?: object): Promise<T> {
     return instance.get(url, {params});
 }
 
-export function post(url: string, data?: object) {
+export function post<T>(url: string, data?: object): Promise<T> {
     return instance.post(url, data);
 }
 
-export function put(url: string, data?: object) {
+export function put<T>(url: string, data?: object): Promise<T> {
     return instance.put(url, data);
 }
 
-export function del(url: string, params?: object) {
+export function del<T>(url: string, params?: object): Promise<T> {
     return instance.delete(url, {params});
 }

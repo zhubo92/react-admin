@@ -14,13 +14,13 @@ import {useNavigate} from "react-router-dom";
 type MenuItem = Required<MenuProps>["items"][number];
 
 const items: MenuItem[] = [
-    {key: "/dashboard", icon: <HomeOutlined />, label: "Dashboard"},
+    {key: "/dashboard", icon: <HomeOutlined />, label: "仪表盘"},
     {
-        key: "/me",
-        label: "用户模块",
+        key: "/person",
+        label: "人员模块",
         icon: <UsergroupDeleteOutlined />,
         children: [
-            {key: "/user", label: "用户列表", icon: <UserOutlined />},
+            {key: "/user", label: "用户管理", icon: <UserOutlined />},
             {key: "/menu", label: "菜单管理", icon: <MailOutlined />},
             {key: "/role", label: "角色管理", icon: <SolutionOutlined />},
             {key: "/dept", label: "部门管理", icon: <LaptopOutlined />},
@@ -46,7 +46,7 @@ function Menu() {
             <MenuCom
                 items={items}
                 defaultSelectedKeys={[currentMenu]}
-                defaultOpenKeys={["/me"]}
+                defaultOpenKeys={["/person"]}
                 mode="inline"
                 theme="dark"
                 inlineCollapsed={collapsed}

@@ -5,6 +5,7 @@ import {formatTime} from "../../utils";
 import {useAntdTable} from "ahooks";
 import {useRef, useState} from "react";
 import CreateUser from "./CreateUser.tsx";
+import SearchForm from "../../components/SearchForm.tsx";
 
 function User() {
     const columns: TableColumnsType<IUser> = [
@@ -12,21 +13,25 @@ function User() {
             title: "用户ID",
             dataIndex: "userId",
             key: "userId",
+            align: "center"
         },
         {
             title: "用户名称",
             dataIndex: "userName",
             key: "userName",
+            align: "center"
         },
         {
             title: "用户邮箱",
             dataIndex: "userEmail",
             key: "userEmail",
+            align: "center"
         },
         {
             title: "用户角色",
             dataIndex: "role",
             key: "role",
+            align: "center",
             render(role: number) {
                 return {0: "超级管理员", 1: "管理员", 2: "体验管理员", 3: "普通用户",}[role];
             },
@@ -35,6 +40,7 @@ function User() {
             title: "用户状态",
             dataIndex: "state",
             key: "state",
+            align: "center",
             render(state: number) {
                 return {1: "在职", 2: "离职", 3: "试用期",}[state];
             },
@@ -43,6 +49,7 @@ function User() {
             title: "注册时间",
             dataIndex: "createTime",
             key: "createTime",
+            align: "center",
             render(createTime: string) {
                 return formatTime(createTime);
             },
@@ -50,6 +57,7 @@ function User() {
         {
             title: "操作",
             key: "address",
+            align: "center",
             render(record: IUser) {
                 return (
                     <Space>
@@ -136,7 +144,7 @@ function User() {
 
     return (
         <div>
-            <Form className="search-form" layout="inline" form={form}>
+            <SearchForm layout="inline" form={form} initialValues={{state: 1}} search={search}>
                 <Form.Item name="userId" label="用户ID">
                     <Input placeholder="请输入用户ID" />
                 </Form.Item>
@@ -151,13 +159,7 @@ function User() {
                         <Select.Option value={3}>试用期</Select.Option>
                     </Select>
                 </Form.Item>
-                <Form.Item>
-                    <div>
-                        <Button type="primary" className="mr10" onClick={search.submit}>查询</Button>
-                        <Button onClick={search.reset}>重置</Button>
-                    </div>
-                </Form.Item>
-            </Form>
+            </SearchForm>
             <div className="wrap-table">
                 <div className="header">
                     <div className="title">用户列表</div>

@@ -3,6 +3,7 @@ import {Button, Dropdown, MenuProps, Switch} from "antd";
 import {MenuFoldOutlined, MenuUnfoldOutlined} from "@ant-design/icons";
 import storage from "../../utils/storage.ts";
 import {useStore} from "../../store";
+import BreadCrumb from "./BreadCrumb.tsx";
 
 function Header() {
     const {collapsed, updateCollapsed, isDark, updateTheme} = useStore();
@@ -54,9 +55,11 @@ function Header() {
                         }}
                     />
                 </div>
+                <BreadCrumb />
             </div>
             <div className={styles.right}>
-                <Switch checkedChildren="暗黑" unCheckedChildren="明亮" style={{marginRight: "20px"}} checked={isDark} onChange={handleSwitch} />
+                <Switch checkedChildren="暗黑" unCheckedChildren="明亮" style={{marginRight: "20px"}} checked={isDark}
+                        onChange={handleSwitch} />
                 <Dropdown menu={{items, onClick}} trigger={["click"]}>
                     <span className={styles.nickName}>admin</span>
                 </Dropdown>

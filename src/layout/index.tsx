@@ -1,5 +1,5 @@
 import styles from "./index.module.less";
-import {Layout as LayoutCom} from "antd";
+import {Layout as LayoutCom, Watermark} from "antd";
 import {Navigate, Outlet, useLocation, useRouteLoaderData} from "react-router-dom";
 import Header from "./header";
 import Footer from "./footer";
@@ -33,20 +33,22 @@ function Layout() {
     }
 
     return (
-        <LayoutCom style={{minHeight: "100vh"}}>
-            <Sider trigger={null} collapsible collapsed={collapsed}>
-                <Menu />
-            </Sider>
-            <LayoutCom>
-                <Header />
-                <div className={styles.content}>
-                    <div className={styles.wrapper}>
-                        <Outlet />
+        <Watermark content="React 19">
+            <LayoutCom style={{minHeight: "100vh"}}>
+                <Sider trigger={null} collapsible collapsed={collapsed}>
+                    <Menu />
+                </Sider>
+                <LayoutCom>
+                    <Header />
+                    <div className={styles.content}>
+                        <div className={styles.wrapper}>
+                            <Outlet />
+                        </div>
                     </div>
-                </div>
-                <Footer />
+                    <Footer />
+                </LayoutCom>
             </LayoutCom>
-        </LayoutCom>
+        </Watermark>
     );
 }
 

@@ -1,6 +1,7 @@
 // 日期格式化函数
 import {IMenu} from "../types/api.ts";
 import {RouteObject} from "react-router-dom";
+import {ReactNode} from "react";
 
 export function formatTime(dateString: string): string {
     // 将输入的日期字符串解析为 Date 对象
@@ -51,7 +52,8 @@ export const searchRoute: (path: string, routes: RouteObject[]) => RouteObject |
     }
 };
 
-export const findTreeNode = (treeData: IMenu[], pathName: string, path: string[]): string[] => {
+// 找到路由对应的节点
+export const findTreeNode = (treeData: IMenu[], pathName: string, path: string[]): string[] | ReactNode[] => {
     if (!treeData) return [];
     for (const item of treeData) {
         path.push(item.menuName);

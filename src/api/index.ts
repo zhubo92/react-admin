@@ -3,10 +3,10 @@ import {
     ICreateMenuParams,
     ICreateUserParams,
     IDept,
-    IDeptSearchParams,
+    IDeptSearchParams, ILineData,
     ILoginParams,
     IMenu,
-    IPermission,
+    IPermission, IPieData, IRadarData, IReportData,
     IRole,
     IRoleCreateParams,
     IRoleEditParams,
@@ -22,6 +22,16 @@ import {
 // 登录
 export function loginApi(data: ILoginParams) {
     return post("/users/login", data);
+}
+
+// 获取用户信息
+export function getUserInfoApi() {
+    return get<IUser>("/users/getUserInfo");
+}
+
+// 获取权限列表
+export function getPermissionListApi() {
+    return get<{ menuList: IMenu[]; buttonList: string[] }>("/users/getPermissionList");
 }
 
 // 获取用户列表
@@ -117,4 +127,26 @@ export function updateRoleApi(params: IRoleEditParams) {
 // 获取所有角色列表
 export function getAllRoleListApi() {
     return get<IRole[]>("/roles/allList");
+}
+
+// dashboard 模块
+
+export function getReportDataApi() {
+    return get<IReportData>("/order/dashboard/getReportData");
+}
+
+export function getLineDataApi() {
+    return get<ILineData>("/order/dashboard/getLineData");
+}
+
+export function getPieCityDataApi() {
+    return get<IPieData>("/order/dashboard/getPieCityData");
+}
+
+export function getPieAgeDataApi() {
+    return get<IPieData>("/order/dashboard/getPieAgeData");
+}
+
+export function getRadarDataApi() {
+    return get<IRadarData>("/order/dashboard/getRadarData");
 }

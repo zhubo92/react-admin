@@ -5,11 +5,22 @@ import Header from "./header";
 import Footer from "./footer";
 import {useStore} from "../store";
 import Menu from "./menu";
+import {getUserInfoApi} from "../api";
+import {useEffect} from "react";
 
 const {Sider} = LayoutCom;
 
 function Layout() {
-    const {collapsed} = useStore();
+    const {collapsed, updateUserInfo} = useStore();
+
+    useEffect(() => {
+        getUserInfo();
+    }, []);
+
+    const getUserInfo = async () => {
+        const data = await getUserInfoApi();
+        updateUserInfo(data);
+    };
 
     return (
         <LayoutCom style={{minHeight: "100vh"}}>

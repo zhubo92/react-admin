@@ -33,6 +33,7 @@ function Dept() {
         }
     });
     const [list, setList] = useState<IDept[]>([]);
+    const [loading, setLoading] = useState(false);
     const [form] = Form.useForm();
 
     useEffect(() => {
@@ -40,8 +41,10 @@ function Dept() {
     }, []);
 
     const getDeptList = async () => {
+        setLoading(true);
         const data = await getDeptListApi(form.getFieldsValue());
         setList(data);
+        setLoading(false);
     };
 
     const handleSubCreate = (_id: string) => {
@@ -96,6 +99,7 @@ function Dept() {
                     </div>
                 </div>
                 <Table<IDept>
+                    loading={loading}
                     key={new Date().getTime()}
                     rowKey="_id"
                     columns={columns}

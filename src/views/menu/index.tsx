@@ -41,6 +41,7 @@ function Menu() {
         }
     });
     const [list, setList] = useState<IMenu[]>([]);
+    const [loading, setLoading] = useState(false);
     const [form] = Form.useForm();
 
     useEffect(() => {
@@ -48,8 +49,10 @@ function Menu() {
     }, []);
 
     const getMenuList = async () => {
+        setLoading(true);
         const data = await getMenuListApi(form.getFieldsValue());
         setList(data);
+        setLoading(false);
     };
 
     const handleSubCreate = (_id: string) => {
@@ -110,6 +113,7 @@ function Menu() {
                     </div>
                 </div>
                 <Table<IMenu>
+                    loading={loading}
                     key={new Date().getTime()}
                     bordered
                     rowKey="_id"

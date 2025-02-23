@@ -1,4 +1,7 @@
 // 日期格式化函数
+import {IMenu} from "../types/api.ts";
+import {RouteObject} from "react-router-dom";
+
 export function formatTime(dateString: string): string {
     // 将输入的日期字符串解析为 Date 对象
     const date = new Date(dateString);
@@ -19,3 +22,45 @@ export function formatTime(dateString: string): string {
             .padStart(2, "0")}秒`
     );
 }
+
+export function formatState(state: number) {
+    if (state === 1) {
+        return "在职";
+    } else if (state === 2) {
+        return "试用期";
+    } else {
+        return "离职";
+    }
+}
+
+// 获取菜单的path
+export function getMenuPath(list: IMenu[]): string[] {
+    return list.reduce((res: string[], item: IMenu) => {
+        return res.concat(Array.isArray(item.children) && !item.buttons ? getMenuPath(item.children) : item.path + "");
+    }, []);
+}
+
+// 递归获取路由对象
+export const searchRoute: (path: string, routes: RouteObject[]) => RouteObject | undefined = (path: string, routes: RouteObject[]) => {
+    for (const item of routes) {
+        if (item?.path === path) return item;
+        if (item?.children) {
+            const res = searchRoute(path, item.children);
+            if (res) return res;
+        }
+    }
+};
+
+export const findTreeNode = (treeData: IMenu[], pathName: string, path: string[]): string[] => {
+    if (!treeData) return [];
+    for (const item of treeData) {
+        path.push(item.menuName);
+        if (item.path === pathName) return path;
+        if (item.children?.length) {
+            const list = findTreeNode(item.children, pathName, path);
+            if (list.length) return list;
+        }
+        path.pop();
+    }
+    return [];
+};

@@ -5,7 +5,7 @@ import Layout from "@/layout";
 import authLoader from "./authLoader.ts";
 import Forbidden from "@/views/Forbidden.tsx";
 import {lazy} from "react";
-import {lazyLoad} from "./LazyLoad.tsx";
+import lazyLoad from "./lazyLoad.tsx";
 
 const router = createBrowserRouter([
     {

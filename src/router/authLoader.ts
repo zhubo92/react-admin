@@ -5,6 +5,8 @@ async function authLoader() {
     const {menuList, buttonList} = await getPermissionListApi();
     const menuPathList = getMenuPath(menuList);
 
+    console.log(menuList,"menuList");
+
     return {
         menuList,
         menuPathList,

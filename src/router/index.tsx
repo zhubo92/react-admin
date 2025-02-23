@@ -15,10 +15,10 @@ const router = createBrowserRouter([
         children: [
             {path: "/welcome", element: lazyLoad(lazy(() => import("../views/welcome")))},
             {path: "/dashboard", element: lazyLoad(lazy(() => import("../views/dashboard")))},
-            {path: "/user", element: lazyLoad(lazy(() => import("../views/user")))},
-            {path: "/role", element: lazyLoad(lazy(() => import("../views/role")))},
-            {path: "/menu", element: lazyLoad(lazy(() => import("../views/menu")))},
-            {path: "/dept", element: lazyLoad(lazy(() => import("../views/dept")))},
+            {path: "/userList", element: lazyLoad(lazy(() => import("../views/user")))},
+            {path: "/roleList", element: lazyLoad(lazy(() => import("../views/role")))},
+            {path: "/menuList", element: lazyLoad(lazy(() => import("../views/menu")))},
+            {path: "/deptList", element: lazyLoad(lazy(() => import("../views/dept")))},
         ]
     },
     {path: "/", element: <Navigate to="/welcome" />},

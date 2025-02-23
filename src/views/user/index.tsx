@@ -6,6 +6,7 @@ import {useAntdTable} from "ahooks";
 import {useRef, useState} from "react";
 import CreateUser from "./CreateUser.tsx";
 import SearchForm from "../../components/SearchForm.tsx";
+import AuthButton from "../../components/AuthButton.tsx";
 
 function User() {
     const columns: TableColumnsType<IUser> = [
@@ -164,7 +165,8 @@ function User() {
                 <div className="header">
                     <div className="title">用户列表</div>
                     <div className="action">
-                        <Button type="primary" onClick={handleCreate}>新增</Button>
+                        {/* 实现通过权限控制按钮显示 */}
+                        <AuthButton auth="user@create" type="primary" onClick={handleCreate}>新增</AuthButton>
                         <Button type="primary" danger onClick={handlePatchConfirm}>批量删除</Button>
                     </div>
                 </div>

@@ -3,13 +3,17 @@ import {loginApi} from "../../api";
 import {ILoginParams} from "../../types/api.ts";
 import storage from "../../utils/storage.ts";
 import styles from "./index.module.less";
+import {useNavigate} from "react-router-dom";
 
 function Login() {
+    const navigate = useNavigate();
+
     const onFinish = async (values: ILoginParams) => {
         const data = await loginApi(values);
-        console.log(data);
         storage.set("token", data);
+        navigate("/");
     };
+
     return <div className={styles.login}>
         <div className={styles.loginWrapper}>
             <div className={styles.title}>系统登录</div>

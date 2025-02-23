@@ -1,41 +1,67 @@
 import styles from "./index.module.less";
 import {Menu as MenuCom, MenuProps} from "antd";
 import {useStore} from "../../store";
-import {useState} from "react";
-import {
-    HomeOutlined,
-    LaptopOutlined,
-    MailOutlined,
-    SolutionOutlined,
-    UsergroupDeleteOutlined, UserOutlined
-} from "@ant-design/icons";
-import {useNavigate} from "react-router-dom";
+import {ComponentType, useEffect, useState} from "react";
+import * as Icons from "@ant-design/icons";
+import {useLocation, useNavigate, useRouteLoaderData} from "react-router-dom";
+import * as React from "react";
+import {IMenu} from "../../types/api.ts";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
-const items: MenuItem[] = [
-    {key: "/dashboard", icon: <HomeOutlined />, label: "仪表盘"},
-    {
-        key: "/person",
-        label: "人员模块",
-        icon: <UsergroupDeleteOutlined />,
-        children: [
-            {key: "/user", label: "用户管理", icon: <UserOutlined />},
-            {key: "/menu", label: "菜单管理", icon: <MailOutlined />},
-            {key: "/role", label: "角色管理", icon: <SolutionOutlined />},
-            {key: "/dept", label: "部门管理", icon: <LaptopOutlined />},
-        ],
-    },
-];
-
 function Menu() {
-    const {collapsed} = useStore();
+    const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
+    const [menuList, setMenuList] = useState<MenuItem[]>([]);
+    const {collapsed, isDark} = useStore();
+    const {pathname} = useLocation();
     const navigate = useNavigate();
-    const [currentMenu, setCurrentMenu] = useState(location.pathname);
+    const data = useRouteLoaderData("layout");
 
-    const menuClick = ({ key }: { key: string }) => {
+    useEffect(() => {
+        const treeMenuList = getTreeMenu(data.menuList);
+        setMenuList(treeMenuList);
+        setSelectedKeys([pathname]);
+    }, []);
+
+    function getItem(
+        label: React.ReactNode,
+        key?: React.Key | null,
+        icon?: React.ReactNode,
+        children?: MenuItem[]
+    ): MenuItem {
+        return {
+            label,
+            key,
+            icon,
+            children,
+        } as MenuItem;
+    }
+
+    function createIcon(name?: string) {
+        if (!name) return <></>;
+        const customerIcons = Icons as unknown as Record<string, ComponentType>;
+        const icon = customerIcons[name];
+        if (!icon) return <></>;
+        return React.createElement(icon);
+    }
+
+    const getTreeMenu = (menuList: IMenu[], treeList: MenuItem[] = []) => {
+        menuList.forEach((item) => {
+            if (item.menuType === 1 && item.menuState === 1) {
+                if (item.buttons) {
+                    return treeList.push(getItem(item.menuName, item.path, createIcon(item.icon)));
+                }
+                treeList.push(
+                    getItem(item.menuName, item.path, createIcon(item.icon), getTreeMenu(item.children || []))
+                );
+            }
+        });
+        return treeList;
+    };
+
+    const menuClick = ({key}: { key: string }) => {
         navigate(key);
-        setCurrentMenu(key);
+        setSelectedKeys([key]);
     };
     return (
         <div className={styles.menu}>
@@ -46,11 +72,10 @@ function Menu() {
                 {collapsed ? "" : <div>企业中台</div>}
             </div>
             <MenuCom
-                items={items}
-                defaultSelectedKeys={[currentMenu]}
-                defaultOpenKeys={["/person"]}
+                items={menuList}
+                selectedKeys={selectedKeys}
                 mode="inline"
-                theme="dark"
+                theme={isDark ? "dark" : "light"}
                 inlineCollapsed={collapsed}
                 onClick={menuClick}
             />

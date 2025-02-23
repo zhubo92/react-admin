@@ -84,7 +84,7 @@ function Dept() {
                 <Form.Item>
                     <div>
                         <Button type="primary" className="mr10" onClick={getDeptList}>查询</Button>
-                        <Button type="primary" onClick={handleReset}>重置</Button>
+                        <Button onClick={handleReset}>重置</Button>
                     </div>
                 </Form.Item>
             </Form>

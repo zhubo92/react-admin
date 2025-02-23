@@ -45,7 +45,7 @@ export function delUserApi(params: { userIds: number[] }) {
 }
 
 // 获取部门列表
-export function getDeptListApi(params: IDeptSearchParams) {
+export function getDeptListApi(params?: IDeptSearchParams) {
     return get<IDept[]>("/dept/list", params);
 }
 

@@ -17,6 +17,7 @@ export interface ILoginParams {
 export interface IDeptSearchParams {
     deptName?: string;
 }
+
 export interface IDept {
     _id: string;
     createTime: string;
@@ -25,23 +26,6 @@ export interface IDept {
     parentId: string;
     userName: string;
     children: IDept[];
-}
-
-// 用户模块
-export interface IUser {
-    _id: string;
-    userId: number;
-    userName: string;
-    userEmail: string;
-    deptId: string;
-    state: number;
-    mobile: string;
-    job: string;
-    role: number;
-    roleList: string;
-    createId: number;
-    deptName: string;
-    userImg: string;
 }
 
 // 菜单模块
@@ -57,10 +41,12 @@ export interface ICreateMenuParams {
     component: string; // 组件名称
     menuStatus: number; // 菜单状态 1:启用 2:禁用
 }
+
 // 更新菜单参数
 export interface IUpdateMenuParams extends ICreateMenuParams {
     _id: string;
 }
+
 // 菜单list
 export interface IMenu extends ICreateMenuParams {
     _id: string;
@@ -92,9 +78,11 @@ export interface IRole {
     createTime: string;
     updateTime: string;
 }
+
 export interface IRoleSearchParams extends IPageParams {
     roleName?: string;
 }
+
 export interface IRoleCreateParams {
     roleName: string;
     remark: string;
@@ -103,6 +91,7 @@ export interface IRoleCreateParams {
 export interface IRoleEditParams extends IRoleCreateParams {
     _id: string;
 }
+
 export interface IPermission {
     _id: string;
     permissionList: {
@@ -119,6 +108,7 @@ export interface IUserSearchParams extends IPageParams {
     userName?: string;
     state?: number;
 }
+
 // 用户列表
 export interface IUser {
     _id: string;
@@ -135,6 +125,7 @@ export interface IUser {
     deptName: string;
     userImg: string;
 }
+
 // 创建用户参数
 export interface ICreateUserParams {
     userName: string;
@@ -146,6 +137,7 @@ export interface ICreateUserParams {
     roleList: string[];
     userImg: string;
 }
+
 // 更新用户参数
 export interface IUpdateUserParams extends ICreateUserParams {
     userId: string;

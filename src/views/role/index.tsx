@@ -102,7 +102,7 @@ function Role() {
                 <Form.Item>
                     <div>
                         <Button type="primary" className="mr10" onClick={search.submit}>查询</Button>
-                        <Button type="primary" onClick={search.reset}>重置</Button>
+                        <Button onClick={search.reset}>重置</Button>
                     </div>
                 </Form.Item>
             </Form>

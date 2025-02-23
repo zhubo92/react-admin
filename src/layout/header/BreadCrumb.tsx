@@ -1,7 +1,7 @@
 import {Breadcrumb} from "antd";
 import {useLocation, useRouteLoaderData} from "react-router-dom";
 import {ReactNode, useEffect, useState} from "react";
-import {findTreeNode} from "../../utils";
+import {findTreeNode} from "@/utils";
 
 function BreadCrumb() {
     const {pathname} = useLocation();

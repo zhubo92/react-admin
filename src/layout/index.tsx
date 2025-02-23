@@ -3,9 +3,9 @@ import {Layout as LayoutCom, Watermark} from "antd";
 import {Navigate, Outlet, useLocation, useRouteLoaderData} from "react-router-dom";
 import Header from "./header";
 import Footer from "./footer";
-import {useStore} from "../store";
+import {useStore} from "@/store";
 import Menu from "./menu";
-import {getUserInfoApi} from "../api";
+import {getUserInfoApi} from "@/api";
 import {useEffect} from "react";
 
 const {Sider} = LayoutCom;

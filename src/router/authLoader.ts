@@ -1,5 +1,5 @@
-import {getPermissionListApi} from "../api";
-import {getMenuPath} from "../utils";
+import {getPermissionListApi} from "@/api";
+import {getMenuPath} from "@/utils";
 
 async function authLoader() {
     const {menuList, buttonList} = await getPermissionListApi();

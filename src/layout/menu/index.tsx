@@ -1,11 +1,11 @@
 import styles from "./index.module.less";
 import {Menu as MenuCom, MenuProps} from "antd";
-import {useStore} from "../../store";
+import {useStore} from "@/store";
 import {ComponentType, useEffect, useState} from "react";
 import * as Icons from "@ant-design/icons";
 import {useLocation, useNavigate, useRouteLoaderData} from "react-router-dom";
 import * as React from "react";
-import {IMenu} from "../../types/api.ts";
+import {IMenu} from "@/types/api.ts";
 
 type MenuItem = Required<MenuProps>["items"][number];
 

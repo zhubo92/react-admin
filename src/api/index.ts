@@ -1,4 +1,4 @@
-import {post, get} from "../utils/request.ts";
+import {post, get} from "@/utils/request.ts";
 import {
     ICreateMenuParams,
     ICreateUserParams,
@@ -17,7 +17,7 @@ import {
     IUser,
     IUserSearchParams,
     ResultData
-} from "../types/api.ts";
+} from "@/types/api.ts";
 
 // 登录
 export function loginApi(data: ILoginParams) {

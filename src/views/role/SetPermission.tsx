@@ -1,7 +1,7 @@
 import {Form, Modal, message, Tree, TreeProps, TreeDataNode} from "antd";
 import {useState, RefObject, useImperativeHandle, useEffect} from "react";
-import {IMenu, IPermission, IRole} from "../../types/api";
-import {getMenuListApi, updatePermissionApi,} from "../../api";
+import {IMenu, IPermission, IRole} from "@/types/api";
+import {getMenuListApi, updatePermissionApi,} from "@/api";
 
 interface IProps {
     ref: RefObject<{ openModal: (role: IRole) => void }>;

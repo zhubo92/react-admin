@@ -1,7 +1,7 @@
 import {Form, Modal, Input, message} from "antd";
 import {useState, RefObject, useImperativeHandle} from "react";
-import {IRole} from "../../types/api";
-import {createRoleApi, updateRoleApi} from "../../api";
+import {IRole} from "@/types/api";
+import {createRoleApi, updateRoleApi} from "@/api";
 
 interface IProps {
     ref: RefObject<{ openModal: (type: string, role?: IRole | { parentId: string }) => void }>;

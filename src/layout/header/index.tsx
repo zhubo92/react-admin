@@ -1,8 +1,8 @@
 import styles from "./index.module.less";
 import {Button, Dropdown, MenuProps, Switch} from "antd";
 import {MenuFoldOutlined, MenuUnfoldOutlined} from "@ant-design/icons";
-import storage from "../../utils/storage.ts";
-import {useStore} from "../../store";
+import storage from "@/utils/storage.ts";
+import {useStore} from "@/store";
 import BreadCrumb from "./BreadCrumb.tsx";
 
 function Header() {

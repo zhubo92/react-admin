@@ -1,5 +1,5 @@
 // 日期格式化函数
-import {IMenu} from "../types/api.ts";
+import {IMenu} from "@/types/api.ts";
 import {RouteObject} from "react-router-dom";
 import {ReactNode} from "react";
 

@@ -1,7 +1,7 @@
 import {Button, Form, Input, message, Modal, Select, Space, Table, TableColumnsType} from "antd";
-import {deleteRoleApi, getRoleListApi} from "../../api";
-import {IRole, IRoleSearchParams} from "../../types/api.ts";
-import {formatTime} from "../../utils";
+import {deleteRoleApi, getRoleListApi} from "@/api";
+import {IRole, IRoleSearchParams} from "@/types/api.ts";
+import {formatTime} from "@/utils";
 import {useAntdTable} from "ahooks";
 import CreateRole from "./CreateRole.tsx";
 import {useRef} from "react";

@@ -1,7 +1,7 @@
 import {Button, Form, Input} from "antd";
-import {loginApi} from "../../api";
-import {ILoginParams} from "../../types/api.ts";
-import storage from "../../utils/storage.ts";
+import {loginApi} from "@/api";
+import {ILoginParams} from "@/types/api.ts";
+import storage from "@/utils/storage.ts";
 import styles from "./index.module.less";
 import {useNavigate} from "react-router-dom";
 

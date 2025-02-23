@@ -1,8 +1,8 @@
 import {Button, Form, Input, message, Modal, Space, Table, TableColumnsType} from "antd";
 import {useEffect, useRef, useState} from "react";
-import {deleteDeptApi, getDeptListApi} from "../../api";
-import {IDept} from "../../types/api.ts";
-import {formatTime} from "../../utils";
+import {deleteDeptApi, getDeptListApi} from "@/api";
+import {IDept} from "@/types/api.ts";
+import {formatTime} from "@/utils";
 import CreateDept from "./CreateDept.tsx";
 
 function Dept() {

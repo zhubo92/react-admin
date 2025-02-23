@@ -1,8 +1,8 @@
 import {Button, Form, Input, message, Modal, Select, Space, Table, TableColumnsType} from "antd";
 import {useEffect, useRef, useState} from "react";
-import {deleteMenuApi, getMenuListApi} from "../../api";
-import {IMenu} from "../../types/api.ts";
-import {formatTime} from "../../utils";
+import {deleteMenuApi, getMenuListApi} from "@/api";
+import {IMenu} from "@/types/api.ts";
+import {formatTime} from "@/utils";
 import CreateMenu from "./CreateMenu.tsx";
 
 function Menu() {

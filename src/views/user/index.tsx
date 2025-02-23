@@ -1,12 +1,12 @@
 import {Button, Form, Input, message, Modal, Select, Space, Table, TableColumnsType} from "antd";
-import {delUserApi, getUserListApi} from "../../api";
-import {IUser, IUserSearchParams} from "../../types/api.ts";
-import {formatTime} from "../../utils";
+import {delUserApi, getUserListApi} from "@/api";
+import {IUser, IUserSearchParams} from "@/types/api.ts";
+import {formatTime} from "@/utils";
 import {useAntdTable} from "ahooks";
 import {useRef, useState} from "react";
 import CreateUser from "./CreateUser.tsx";
-import SearchForm from "../../components/SearchForm.tsx";
-import AuthButton from "../../components/AuthButton.tsx";
+import SearchForm from "@/components/SearchForm.tsx";
+import AuthButton from "@/components/AuthButton.tsx";
 
 function User() {
     const columns: TableColumnsType<IUser> = [

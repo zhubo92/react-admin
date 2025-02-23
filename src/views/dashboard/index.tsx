@@ -1,11 +1,11 @@
 import styles from "./index.module.less";
 import {Button, Card, Descriptions} from "antd";
 import {useEffect, useState} from "react";
-import {formatState} from "../../utils";
-import {useStore} from "../../store";
-import {IReportData} from "../../types/api.ts";
-import {getLineDataApi, getPieAgeDataApi, getPieCityDataApi, getRadarDataApi, getReportDataApi} from "../../api";
-import {useCharts} from "../../hooks/useCharts.ts";
+import {formatState} from "@/utils";
+import {useStore} from "@/store";
+import {IReportData} from "@/types/api.ts";
+import {getLineDataApi, getPieAgeDataApi, getPieCityDataApi, getRadarDataApi, getReportDataApi} from "@/api";
+import {useCharts} from "@/hooks/useCharts.ts";
 
 function Dashboard() {
     const userInfo = useStore((state) => state.userInfo);

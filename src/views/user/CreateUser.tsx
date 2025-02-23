@@ -4,8 +4,8 @@ import {LoadingOutlined, PlusOutlined} from "@ant-design/icons";
 import {useEffect, useImperativeHandle, useState} from "react";
 import type {UploadChangeParam} from "antd/es/upload";
 import type {RcFile, UploadFile, UploadProps} from "antd/es/upload/interface";
-import {IDept, IRole, IUser} from "../../types/api";
-import {createUserApi, editUserApi, getAllRoleListApi, getDeptListApi} from "../../api";
+import {IDept, IRole, IUser} from "@/types/api";
+import {createUserApi, editUserApi, getAllRoleListApi, getDeptListApi} from "@/api";
 
 interface IProps {
     ref: RefObject<{ openModal: (type: string, user?: IUser) => void }>;

@@ -1,5 +1,5 @@
 import {create} from "zustand";
-import {IUser} from "../types/api.ts";
+import {IUser} from "@/types/api.ts";
 
 export const useStore = create<{
     collapsed: boolean;

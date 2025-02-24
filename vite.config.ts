@@ -5,7 +5,6 @@ import {visualizer} from "rollup-plugin-visualizer";
 import inspect from "vite-plugin-inspect";
 import * as path from "node:path";
 import * as fs from "node:fs";
-import * as cheerio from "cheerio";
 
 // 预加载添加了懒加载的路由的文件
 function prefetchLazyPlugins() {
@@ -37,16 +36,17 @@ function prefetchLazyPlugins() {
             if (prefetchUrls.length === 0) return;
 
             let prefetchStr = "";
+            let isFirst = true;
             prefetchUrls.forEach((url) => {
-                prefetchStr += `<link href="${url}" rel="prefetch" as="script" />`;
+                prefetchStr += isFirst ? "  " : "    ";
+                prefetchStr += `<link rel="prefetch" as="script" href="${url}">\r\n`;
+                isFirst = false;
             });
 
-            // 加载 index.html 文件
-            const $ = cheerio.load(html);
             // 添加到 head 标签最后
-            $("head").append(prefetchStr);
+            const newHtml = html.replace("</head>", `${prefetchStr}</head>`);
             // 重新写入 index.html
-            fs.writeFileSync(htmlPath, $.html());
+            fs.writeFileSync(htmlPath, newHtml);
         }
     };
 }
@@ -79,7 +79,7 @@ export default defineConfig(({mode}) => {
             inspect(),
             react(),
             visualizer({
-                open: true, // 构建后自动打开报告
+                open: false, // 构建后自动打开报告
             }),
             prefetchLazyPlugins()
         ],

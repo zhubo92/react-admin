@@ -5,36 +5,48 @@ import {visualizer} from "rollup-plugin-visualizer";
 import inspect from "vite-plugin-inspect";
 import * as path from "node:path";
 import * as fs from "node:fs";
+import * as cheerio from "cheerio";
 
-// 需要提前请求的文件
-const needPrefetchFiles = ["src/views/user/index.tsx", "src/views/role/index.tsx", "src/views/dept/index.tsx"];
-
-const prefetchUrls: string[] = [];
-
-function pushPrefetchUrls() {
-    const manifestUrl = path.resolve("dist/.vite/manifest.json");
-    if(!manifestUrl) return;
-    const manifestJson = JSON.parse(fs.readFileSync(manifestUrl, "utf8"));
-    if(!manifestJson) return;
-    needPrefetchFiles.forEach((file) => {
-         if(manifestJson[file]?.file) prefetchUrls.push("/" + manifestJson[file].file);
-    });
-    console.log(prefetchUrls, "prefetchUrls");
-}
-
-pushPrefetchUrls();
-
-// 提前请求懒加载路由的文件
-function prefetchLazyPlugins(paths: string[]) {
+// 预加载添加了懒加载的路由的文件
+function prefetchLazyPlugins() {
     return {
         name: "vite-plugin-prefetch-lazy",
-        transformIndexHtml(html: string) {
-            if (paths.length === 0) return html;
-            let prefetchStr = "";
-            paths.forEach((path) => {
-                prefetchStr += `<link href="${path}" rel="prefetch" as="script" />`;
+        closeBundle() {
+            // 读取 index.html 文件内容
+            const htmlPath = path.resolve("dist/index.html");
+            const html = fs.readFileSync(htmlPath, "utf-8");
+            // 避免重复添加
+            if(html.includes("prefetch")) return;
+
+            // 需要预加载的文件路径
+            const needPrefetchFiles = ["src/views/user/index.tsx", "src/views/role/index.tsx", "src/views/dept/index.tsx"];
+            // 对应的实际打包后的js文件路径
+            const prefetchUrls: string[] = [];
+
+            // 读取 manifest 文件内容
+            const manifestPath = path.resolve("dist/.vite/manifest.json");
+            if(!manifestPath) return;
+            const manifestJson = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
+            if(!manifestJson) return;
+
+            // 找到需要预加载的文件路径
+            needPrefetchFiles.forEach((file) => {
+                if(manifestJson[file]?.file) prefetchUrls.push("/" + manifestJson[file].file);
             });
-            return html.replace("</head>", `${prefetchStr}</head>`);
+
+            if (prefetchUrls.length === 0) return;
+
+            let prefetchStr = "";
+            prefetchUrls.forEach((url) => {
+                prefetchStr += `<link href="${url}" rel="prefetch" as="script" />`;
+            });
+
+            // 加载 index.html 文件
+            const $ = cheerio.load(html);
+            // 添加到 head 标签最后
+            $("head").append(prefetchStr);
+            // 重新写入 index.html
+            fs.writeFileSync(htmlPath, $.html());
         }
     };
 }
@@ -45,6 +57,7 @@ export default defineConfig(({mode}) => {
     const env = loadEnv(mode, root);
 
     console.log(env, "env");
+    console.log(mode, "mode");
 
     return {
         build: {
@@ -68,7 +81,7 @@ export default defineConfig(({mode}) => {
             visualizer({
                 open: true, // 构建后自动打开报告
             }),
-            prefetchLazyPlugins(prefetchUrls)
+            prefetchLazyPlugins()
         ],
         server: {
             proxy: {
